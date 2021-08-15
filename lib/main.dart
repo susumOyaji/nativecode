@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,38 +14,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter NativeData Test'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -50,68 +30,121 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  String _platformVersion = 'Unknown version level.';
+  String _platformTelephony = 'Unknown telephony';
+  String _platformBattery = 'Unknown battery Level';
+  String _platformHangup = 'Unknown Connect';
 
-  void _incrementCounter() {
+  static const platform = const MethodChannel('samples.flutter.dev/battery');
+
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+    //_getBatteryLevel();
+    //initPlatformState();
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
+    //Future<void> _getBatteryLevel() async {
+    // Get battery level.
+    String batteryLevel;
+    try {
+      final int result = await platform.invokeMethod('getBatteryLevel');
+      batteryLevel = 'Battery level at $result % .';
+    } on PlatformException catch (e) {
+      batteryLevel = "Failed to get battery level: '${e.message}'.";
+    }
+
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      _platformBattery = batteryLevel;
+    });
+    //}
+
+    //Future<void> _getPiatformVersion() async {
+    // Get battery level.
+    String platformVersion;
+    try {
+      final String result = await platform.invokeMethod('getPlatformVersion');
+      platformVersion = result;
+    } on PlatformException catch (e) {
+      platformVersion = "Failed to get android version: '${e.message}'.";
+    }
+
+    setState(() {
+      _platformVersion = platformVersion;
+    });
+    //}
+  }
+
+  Future<void> _getAndroidphone() async {
+    // Get battery level.
+    String platformTelephony;
+
+    try {
+      final String result =
+          await platform.invokeMethod('getAndroidphone', "11111111111");
+      platformTelephony = result;
+    } on PlatformException catch (e) {
+      platformTelephony = "Failed : '${e.message}'.";
+    }
+
+    setState(() {
+      _platformTelephony = platformTelephony;
+    });
+  }
+
+  Future<void> _getPiatformHagup() async {
+    // Get battery level.
+    String platformHangup;
+
+    try {
+      final bool result = await platform.invokeMethod('hangup', true);
+      platformHangup = result.toString();
+      print(platformHangup);
+    } on PlatformException catch (e) {
+      platformHangup = "Failed : '${e.message}'.";
+    }
+
+    setState(() {
+      _platformHangup = platformHangup;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            //RaisedButton(
+            //  child: Text('Get Battery Level'),
+            //  onPressed: //_getBatteryLevel,
+            //),
+            Text(_platformBattery),
+
+            Text(_platformVersion),
+            RaisedButton(
+              child: Text('Connect the phone'),
+              onPressed: _getAndroidphone,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Text(_platformTelephony),
+            RaisedButton(
+              child: Text('Hang Up the pnone'),
+              onPressed: _getPiatformHagup,
             ),
+            Text(_platformHangup),
+            //Center(child: Text('Running on Version: $_platformVersion\n')),
+            //Center(child: Text('Running on Battery: $_platformBattery\n')),
+            //Center(child: Text('Running on Telephony: $_platformTelephony\n')),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
