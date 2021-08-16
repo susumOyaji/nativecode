@@ -3,8 +3,8 @@
     "tasks": [
         {
             "label": "run gradle",
-            "type": "shell",
-            "command": "${workspaceFolder}/gradlew",
+            "type": "dart",
+            "command": "${Android Launch}",//"${workspaceFolder}/gradlew",
             "args": [
                 "assembleDebug"
             ],
