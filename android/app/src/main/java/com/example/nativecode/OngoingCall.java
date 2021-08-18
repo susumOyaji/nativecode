@@ -2,6 +2,8 @@ package com.example.nativecode;
 
 
 import android.telecom.Call;
+//https://developer.android.com/guide/topics/connectivity/telecom?hl=ja#replacePhoneApp
+//https://developer.android.com/guide/topics/connectivity/telecom/selfManaged?hl=ja
 import io.reactivex.subjects.BehaviorSubject;
 import timber.log.Timber;
 

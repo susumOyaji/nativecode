@@ -38,6 +38,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.widget.Toast;
 import android.widget.TextView;
+import android.view.View;
 import com.example.nativecode.R;
 import android.os.BatteryManager;
 import android.os.Build.VERSION;
@@ -70,7 +71,7 @@ public class DialerActivity extends FlutterActivity {
     private static  final String EXTRA_STRING = "extra_string";
     CallActivity callActivity = new CallActivity();
      
-    EditText phoneNumberInput;
+    //EditText phoneNumberInput;
     String parameters;
     
 
@@ -94,73 +95,75 @@ public class DialerActivity extends FlutterActivity {
         //}, REQUEST_CODE);
 
         //setContentView(R.layout.activity_dialer);
-
-        phoneNumberInput = (EditText) findViewById(R.id.phoneNumberInput);
+      
+        //phoneNumberInput = (EditText) findViewById(R.id.phoneNumberInput);
         
         //get Intent data (tel number)
-        if (getIntent().getData() != null)
-          phoneNumberInput.setText(getIntent().getData().getSchemeSpecificPart());
+        //if (getIntent().getData() != null)
+        //  phoneNumberInput.setText(getIntent().getData().getSchemeSpecificPart());
         
-        
-        
-        new App();
-        Toast.makeText(DialerActivity.this, "Started the DialerActivity.app", Toast.LENGTH_SHORT).show();
-        new MethodChannel(getFlutterEngine().getDartExecutor().getBinaryMessenger(), CHANNEL).setMethodCallHandler(
-          new MethodCallHandler() {
-                    @Override
-                    public void onMethodCall(MethodCall call, Result result) {//TODO
-                    Toast.makeText(DialerActivity.this, "Started theMethodChannel ", Toast.LENGTH_SHORT).show();
-                    if (call.method.equals("getAndroidphone")) {
-                         Toast.makeText(DialerActivity.this, "Started getAndroidphone!!! ", Toast.LENGTH_SHORT).show();
-                        
-                        // invokeMethod(Dart)の第二引数で指定したパラメータを取得できます
-                        parameters = call.arguments.toString();
-                        
-                        String phonestate = makeCall(parameters);
-                        Toast.makeText(DialerActivity.this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
-                        
-                        if (phonestate != null) {
-                          result.success(phonestate);//return to Flutter
-                        } else {
-                          result.error("UNAVAILABLE", "Dialer-AndroidPhone not available.", null);
-                        }
-                      } else if (call.method.equals("hangup")) {
-                        Toast.makeText(DialerActivity.this, "Started theMethodChannel to hangup ", Toast.LENGTH_SHORT).show();
-                        // invokeMethod(Dart)の第二引数で指定したパラメータを取得できます
-                        boolean hangupparameters = (boolean)call.arguments;
-                        boolean returnhangup = hangup(hangupparameters);
-                
-                        if (returnhangup != true) {
-                          result.success(returnhangup);
-                        } else {
-                          result.error("UNAVAILABLE", "Hangup not available.", null);
-                        }
-                               
-                      } else if (call.method.equals("getBatteryLevel")) {
-                        int batteryLevel = getBatteryLevel();
-                        if (batteryLevel != -1) {
-                          result.success(batteryLevel);
-                        } else {
-                          result.error("UNAVAILABLE", "Battery level not available.", null);
-                        }
-                      } else if (call.method.equals("getPlatformVersion")) {
-                        result.success("Android " + android.os.Build.VERSION.RELEASE);                    
+     
+
+          
+      new App();
+      Toast.makeText(DialerActivity.this, "Started the DialerActivity.app", Toast.LENGTH_SHORT).show();
+      new MethodChannel(getFlutterEngine().getDartExecutor().getBinaryMessenger(), CHANNEL).setMethodCallHandler(
+        new MethodCallHandler() {
+                  @Override
+                  public void onMethodCall(MethodCall call, Result result) {//TODO
+                  Toast.makeText(DialerActivity.this, "Started theMethodChannel ", Toast.LENGTH_SHORT).show();
+                  if (call.method.equals("getAndroidphone")) {
+                      Toast.makeText(DialerActivity.this, "Started getAndroidphone!!! ", Toast.LENGTH_SHORT).show();
+                      
+                      // invokeMethod(Dart)の第二引数で指定したパラメータを取得できます
+                      parameters = call.arguments.toString();
+                      
+                      String phonestate = makeCall(parameters);
+                      Toast.makeText(DialerActivity.this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
+                      
+                      if (phonestate != null) {
+                        result.success(phonestate);//return to Flutter
                       } else {
-                        result.notImplemented();//該当するメソッドが実装されていない
-                      } // TOD
-                    }
-                }
-          );
+                        result.error("UNAVAILABLE", "Dialer-AndroidPhone not available.", null);
+                      }
+                    } else if (call.method.equals("hangup")) {
+                      Toast.makeText(DialerActivity.this, "Started theMethodChannel to hangup ", Toast.LENGTH_SHORT).show();
+                      // invokeMethod(Dart)の第二引数で指定したパラメータを取得できます
+                      boolean hangupparameters = (boolean)call.arguments;
+                      boolean returnhangup = hangup(hangupparameters);
+              
+                      if (returnhangup != true) {
+                        result.success(returnhangup);
+                      } else {
+                        result.error("UNAVAILABLE", "Hangup not available.", null);
+                      }
+                            
+                    } else if (call.method.equals("getBatteryLevel")) {
+                      int batteryLevel = getBatteryLevel();
+                      if (batteryLevel != -1) {
+                        result.success(batteryLevel);
+                      } else {
+                        result.error("UNAVAILABLE", "Battery level not available.", null);
+                      }
+                    } else if (call.method.equals("getPlatformVersion")) {
+                      result.success("Android " + android.os.Build.VERSION.RELEASE);                    
+                    } else {
+                      result.notImplemented();//該当するメソッドが実装されていない
+                    } // TOD
+                  }
+              }
+        );
     }
-
-
 
     @Override
     public void onStart() {
-        super.onStart();
-         offerReplacingDefaultDialer(); 
+      super.onStart();
+      offerReplacingDefaultDialer(); 
     }
 
+
+
+    
   
 
     
@@ -197,6 +200,11 @@ public class DialerActivity extends FlutterActivity {
             Uri uri = Uri.parse("tel:"+ _phone);
             
             // Start call to the number in input
+            //別のアクティビティを開始する 
+            //Intent は、異なるコンポーネント（2 つのアクティビティなど）間で実行時バインディングを付与するオブジェクトです。
+            //Intent はアプリの「何かを行うという意図」を表します。
+            //インテントは幅広いタスクで使用できますが、このレッスンでは別のアクティビティを開始するために使われます
+            //ACTION_CALL で電話番号を投げるといきなり発信を開始します。
             startActivity(new Intent(Intent.ACTION_CALL, uri));
         } else {
             // Request permission to call
