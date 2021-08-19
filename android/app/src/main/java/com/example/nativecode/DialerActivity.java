@@ -73,7 +73,7 @@ public class DialerActivity extends FlutterActivity {
      
     //EditText phoneNumberInput;
     String parameters;
-    
+    TelecomManager telecomManager;
 
     private static final int REQUEST_PERMISSION = 0;
     static final int REQUEST_CODE = 1;
@@ -196,8 +196,8 @@ public class DialerActivity extends FlutterActivity {
       Toast.makeText(DialerActivity.this, "Started makeCall!!! ", Toast.LENGTH_SHORT).show();  
         // If permission to call is granted
         if (checkSelfPermission(CALL_PHONE) == PERMISSION_GRANTED) {
-            // Create the Uri from phoneNumberInput
-            Uri uri = Uri.parse("tel:"+ _phone);
+        // Create the Uri from phoneNumberInput
+          Uri uri = Uri.parse("tel:"+ _phone);
             
             // Start call to the number in input
             //別のアクティビティを開始する 
@@ -211,7 +211,7 @@ public class DialerActivity extends FlutterActivity {
             ActivityCompat.requestPermissions(this, new String[]{CALL_PHONE}, REQUEST_PERMISSION);
         }
              
-        String tv = CallActivity.PhoneState;
+        String tv=CallActivity.PhoneState;
         Toast.makeText(DialerActivity.this, "makeCall  CallActivity.PhoneState" + tv , Toast.LENGTH_SHORT).show();
         
         return tv;
@@ -223,24 +223,6 @@ public class DialerActivity extends FlutterActivity {
       //CallActivity.onHangup();
       OngoingCall.hangup();// call.disconnect();
       return true;
-    }
-
-
-
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        
-        Toast.makeText(DialerActivity.this, "onRequestPermissionsResult", Toast.LENGTH_SHORT).show();
-        ArrayList<Integer> grantRes = new ArrayList<>();
-        // Add every result to the array
-        for (Integer grantResult: grantResults) grantRes.add(grantResult);
-        if (requestCode == REQUEST_PERMISSION && grantRes.contains(PERMISSION_GRANTED)) {
-            makeCall(parameters);
-        }
-
     }
 
 
@@ -261,6 +243,26 @@ public class DialerActivity extends FlutterActivity {
         //  startActivity((new Intent(ACTION_CHANGE_DEFAULT_DIALER)).putExtra(EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, this.getPackageName()));
         //}
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        
+        Toast.makeText(DialerActivity.this, "onRequestPermissionsResult", Toast.LENGTH_SHORT).show();
+        
+        ArrayList<Integer> grantRes = new ArrayList<>();
+        // Add every result to the array
+        for (Integer grantResult: grantResults) grantRes.add(grantResult);
+        
+        if (requestCode == REQUEST_PERMISSION && grantRes.contains(PERMISSION_GRANTED)) {
+            makeCall(parameters);
+        }
+
+    }
+
+
+
+    
 
    
 

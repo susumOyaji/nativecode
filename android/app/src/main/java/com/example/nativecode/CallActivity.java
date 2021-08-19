@@ -31,12 +31,12 @@ public class CallActivity extends  Activity {
 
         Toast.makeText(CallActivity.this, "CallActivity", Toast.LENGTH_SHORT).show();
         
-        setContentView(R.layout.activity_call);
-        answer = findViewById(R.id.answer);
-        hangup = findViewById(R.id.hangup);
+        //setContentView(R.layout.activity_call);
+        //answer = findViewById(R.id.answer);
+        //hangup = findViewById(R.id.hangup);
         callInfo = findViewById(R.id.callInfo);
        
-        number = getIntent().getData().getSchemeSpecificPart();
+        //number = getIntent().getData().getSchemeSpecificPart();
     }
 
 
@@ -47,8 +47,8 @@ public class CallActivity extends  Activity {
     public void onStart() {
         super.onStart();
 
-        answer.setOnClickListener(v -> OngoingCall.answer());
-        hangup.setOnClickListener(v -> OngoingCall.hangup());
+        //answer.setOnClickListener(v -> OngoingCall.answer());
+        //hangup.setOnClickListener(v -> OngoingCall.hangup());
 
         // Subscribe to state change -> call updateUi when change
         new OngoingCall();
@@ -83,16 +83,16 @@ public class CallActivity extends  Activity {
         PhoneState = callInfo.getText().toString();
         
 
-        if (state == Call.STATE_RINGING)
-            answer.setVisibility(View.VISIBLE);// ボタンを表示する
-        else
-            answer.setVisibility(View.GONE);// ボタンを非表示にする
+        //if (state == Call.STATE_RINGING)
+            //answer.setVisibility(View.VISIBLE);// ボタンを表示する
+        //else
+            //answer.setVisibility(View.GONE);// ボタンを非表示にする
         
             
-        if (state == Call.STATE_DIALING || state == Call.STATE_RINGING || state == Call.STATE_ACTIVE)
-            hangup.setVisibility(View.VISIBLE);
-        else
-            hangup.setVisibility(View.GONE);
+        //if (state == Call.STATE_DIALING || state == Call.STATE_RINGING || state == Call.STATE_ACTIVE)
+            //hangup.setVisibility(View.VISIBLE);
+        //else
+            //hangup.setVisibility(View.GONE);
 
            
     }
