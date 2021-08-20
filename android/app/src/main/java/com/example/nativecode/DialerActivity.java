@@ -205,7 +205,19 @@ public class DialerActivity extends FlutterActivity {
             //Intent はアプリの「何かを行うという意図」を表します。
             //インテントは幅広いタスクで使用できますが、このレッスンでは別のアクティビティを開始するために使われます
             //ACTION_CALL で電話番号を投げるといきなり発信を開始します。
-            startActivity(new Intent(Intent.ACTION_CALL, uri));
+            //直接電話をかけるには、ACTION_CALL アクションを使用し、以下に定義されている
+            //URI スキームを使って電話番号を指定します。
+            //電話アプリが開くと呼び出しが始まります。ユーザーが通話ボタンを押す必要はありません。
+            //startActivity(new Intent(Intent.ACTION_CALL, uri));
+            Intent intent = new Intent(Intent.ACTION_CALL)//暗黙的インテント
+                    .setData(Uri.parse("tel:0123456789"));
+            try {
+              startActivity(intent);
+            } catch (SecurityException e){
+              Toast.makeText(DialerActivity.this,"Call Error",Toast.LENGTH_SHORT).show();
+            }
+             
+            //startActivity(new Intent(Intent.ACTION_CALL, uri));       
         } else {
             // Request permission to call
             ActivityCompat.requestPermissions(this, new String[]{CALL_PHONE}, REQUEST_PERMISSION);

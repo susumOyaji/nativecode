@@ -38,16 +38,15 @@
             </intent-filter>
 
              <intent-filter>
+                <action android:name="android.intent.action.CALL_PHONE" />
                 <!-- Handle links from other applications -->
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.DIAL" />
                 <!-- Populate the system chooser -->
                 <category android:name="android.intent.category.DEFAULT" />
-                <!-- Handle links in browsers -->
-                <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="tel" />
             </intent-filter>
-
+            <!-- 必要defoult App-->
             <intent-filter>
                 <action android:name="android.intent.action.DIAL" />
                 <category android:name="android.intent.category.DEFAULT" />
