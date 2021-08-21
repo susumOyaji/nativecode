@@ -21,7 +21,7 @@ final class CallStateString {
                 state = "HOLDING";
                 break;
             case 4:
-                state = "ACTIVE";
+                state = "ACTIVE-Connecting";
                 break;
             case 5:
             case 6:

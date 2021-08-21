@@ -34,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _platformTelephony = 'Unknown telephony';
   String _platformBattery = 'Unknown battery Level';
   String _platformHangup = 'Unknown Connect';
+  String _platformAnswer = 'Unknown Connect';
 
   static const platform = const MethodChannel('samples.flutter.dev/battery');
 
@@ -95,6 +96,23 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<void> _getPiatformAnswer() async {
+    // Get battery level.
+    String platformAnswer;
+
+    try {
+      final bool result = await platform.invokeMethod('answer', true);
+      platformAnswer = result.toString();
+      print(platformAnswer);
+    } on PlatformException catch (e) {
+      platformAnswer = "Failed : '${e.message}'.";
+    }
+
+    setState(() {
+      _platformAnswer = platformAnswer;
+    });
+  }
+
   Future<void> _getPiatformHagup() async {
     // Get battery level.
     String platformHangup;
@@ -135,10 +153,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(_platformTelephony),
             RaisedButton(
-              child: Text('Hang Up the pnone'),
+              child: Text('Answer the pnone'),
+              onPressed: _getPiatformAnswer,
+            ),
+            Text(_platformAnswer),
+            RaisedButton(
+              child: Text('HangUp to Redial the pnone'),
               onPressed: _getPiatformHagup,
             ),
             Text(_platformHangup),
+
             //Center(child: Text('Running on Version: $_platformVersion\n')),
             //Center(child: Text('Running on Battery: $_platformBattery\n')),
             //Center(child: Text('Running on Telephony: $_platformTelephony\n')),

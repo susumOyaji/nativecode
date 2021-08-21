@@ -117,7 +117,6 @@ public class DialerActivity extends FlutterActivity {
                       
                       // invokeMethod(Dart)の第二引数で指定したパラメータを取得できます
                       parameters = call.arguments.toString();
-                      
                       String phonestate = makeCall(parameters);
                       Toast.makeText(DialerActivity.this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
                       
@@ -137,7 +136,17 @@ public class DialerActivity extends FlutterActivity {
                       } else {
                         result.error("UNAVAILABLE", "Hangup not available.", null);
                       }
-                            
+                    } else if (call.method.equals("answer")) {
+                      Toast.makeText(DialerActivity.this, "Started theMethodChannel to Anser ", Toast.LENGTH_SHORT).show();
+                      // invokeMethod(Dart)の第二引数で指定したパラメータを取得できます
+                      boolean answerparameters = (boolean)call.arguments;
+                      boolean returnanser = answer(answerparameters);
+              
+                      if (returnanser != true) {
+                        result.success(returnanser);
+                      } else {
+                        result.error("UNAVAILABLE", "Anser not available.", null);
+                      }        
                     } else if (call.method.equals("getBatteryLevel")) {
                       int batteryLevel = getBatteryLevel();
                       if (batteryLevel != -1) {
@@ -223,7 +232,7 @@ public class DialerActivity extends FlutterActivity {
             ActivityCompat.requestPermissions(this, new String[]{CALL_PHONE}, REQUEST_PERMISSION);
         }
              
-        String tv=CallActivity.PhoneState;
+        String tv="tv";//CallActivity.PhoneState;
         Toast.makeText(DialerActivity.this, "makeCall  CallActivity.PhoneState" + tv , Toast.LENGTH_SHORT).show();
         
         return tv;
@@ -231,12 +240,18 @@ public class DialerActivity extends FlutterActivity {
 
    
     public boolean hangup(boolean hangup) {
-      Toast.makeText(DialerActivity.this, "hangup  to True ", Toast.LENGTH_SHORT).show();
+      Toast.makeText(DialerActivity.this, "hangup to True ", Toast.LENGTH_SHORT).show();
       //CallActivity.onHangup();
       OngoingCall.hangup();// call.disconnect();
       return true;
     }
 
+    public boolean answer(boolean hangup) {
+      Toast.makeText(DialerActivity.this, "answer to True ", Toast.LENGTH_SHORT).show();
+      //CallActivity.onHangup();
+      OngoingCall.hangup();// call.disconnect();
+      return true;
+    }
 
 
     //ユーザーが自分のアプリをデフォルトの電話アプリとして設定する

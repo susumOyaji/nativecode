@@ -24,6 +24,7 @@ public class CallActivity extends  Activity {
     private static Button answer, hangup;
     private static TextView callInfo;
     public  static String PhoneState;
+    private CallStateString callstatestring;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class CallActivity extends  Activity {
         answer.setOnClickListener(v -> OngoingCall.answer());
         hangup.setOnClickListener(v -> OngoingCall.hangup());
 
-        // Subscribe to state change -> call updateUi when change
+        // Subscribe to state change -> call updateUi when change    
         new OngoingCall();
         Disposable disposable = OngoingCall.state.subscribe(this::updateUi);
         disposables.add(disposable);
@@ -83,18 +84,18 @@ public class CallActivity extends  Activity {
         PhoneState = callInfo.getText().toString();
         
 
-        //if (state == Call.STATE_RINGING)
-            //answer.setVisibility(View.VISIBLE);// ボタンを表示する
-        //else
-            //answer.setVisibility(View.GONE);// ボタンを非表示にする
-        
+        if (state == Call.STATE_RINGING){
+            answer.setVisibility(View.VISIBLE);// ボタンを表示する
+        }else{
+            answer.setVisibility(View.GONE);// ボタンを非表示にする
+        }
             
-        //if (state == Call.STATE_DIALING || state == Call.STATE_RINGING || state == Call.STATE_ACTIVE)
-            //hangup.setVisibility(View.VISIBLE);
-        //else
-            //hangup.setVisibility(View.GONE);
-
-           
+        if (state == Call.STATE_DIALING || state == Call.STATE_RINGING || state == Call.STATE_ACTIVE){
+            hangup.setVisibility(View.VISIBLE);
+        }else{
+            hangup.setVisibility(View.GONE);
+        }    
+        Toast.makeText(CallActivity.this, "state    " + callstatestring.asString(state), Toast.LENGTH_SHORT).show();   
     }
 
 
@@ -110,8 +111,6 @@ public class CallActivity extends  Activity {
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .setData(call.getDetails().getHandle()));
     }
-
-
  
 
    
