@@ -77,8 +77,7 @@ public class CallActivity extends  Activity {
     // Set the UI for the call
     @SuppressLint("SetTextI18n")
     public void updateUi(Integer state) {
-        Toast.makeText(CallActivity.this, "updateUi    " + state, Toast.LENGTH_SHORT).show();
-        
+                
         // Set callInfo text by the state
         callInfo.setText(CallStateString.asString(state).toLowerCase() +"   "+number);
         PhoneState = callInfo.getText().toString();
@@ -95,7 +94,8 @@ public class CallActivity extends  Activity {
         }else{
             hangup.setVisibility(View.GONE);
         }    
-        Toast.makeText(CallActivity.this, "state    " + callstatestring.asString(state), Toast.LENGTH_SHORT).show();   
+        Toast.makeText(CallActivity.this, "updateUi state    " + state, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(CallActivity.this, "state    " + callstatestring.asString(state), Toast.LENGTH_SHORT).show();   
     }
 
 

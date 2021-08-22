@@ -249,7 +249,7 @@ public class DialerActivity extends FlutterActivity {
     public boolean answer(boolean hangup) {
       Toast.makeText(DialerActivity.this, "answer to True ", Toast.LENGTH_SHORT).show();
       //CallActivity.onHangup();
-      OngoingCall.hangup();// call.disconnect();
+      OngoingCall.answer();// call.disconnect();
       return true;
     }
 
