@@ -232,11 +232,16 @@ public class DialerActivity extends FlutterActivity {
             ActivityCompat.requestPermissions(this, new String[]{CALL_PHONE}, REQUEST_PERMISSION);
         }
              
-        String tv="tv";//CallActivity.PhoneState;
+        String tv = callActivity.PhoneState;
         Toast.makeText(DialerActivity.this, "makeCall  CallActivity.PhoneState" + tv , Toast.LENGTH_SHORT).show();
         
         return tv;
     }
+
+
+
+
+    
 
    
     public boolean hangup(boolean hangup) {

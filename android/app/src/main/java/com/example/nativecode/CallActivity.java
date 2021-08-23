@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
+import android.widget.LinearLayout;
 
 public class CallActivity extends  Activity {
 
@@ -32,6 +33,23 @@ public class CallActivity extends  Activity {
 
         Toast.makeText(CallActivity.this, "CallActivity", Toast.LENGTH_SHORT).show();
         
+
+
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        setContentView(layout);
+
+        TextView textView = new TextView(this);
+        textView.setText("テキストビュー");
+        layout.addView(textView);
+
+        Button button = new Button(this);
+        button.setText("ボタン");
+        layout.addView(button);
+
+
+        // R.layout.activity_call を渡して表示する
         setContentView(R.layout.activity_call);
         answer = findViewById(R.id.answer);
         hangup = findViewById(R.id.hangup);
@@ -55,7 +73,7 @@ public class CallActivity extends  Activity {
         new OngoingCall();
         Disposable disposable = OngoingCall.state.subscribe(this::updateUi);
         disposables.add(disposable);
-
+        
         // Subscribe to state change (only when disconnected) -> call finish to close phone call
         new OngoingCall();
         Disposable disposable2 = OngoingCall.state
