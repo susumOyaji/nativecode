@@ -84,7 +84,7 @@
 				android:layout_height="match_parent"
 				android:id="@+id/hangup"
 				android:text="hangup"
-				android:layout_marginLeft="0.0dp" />
+				android:layout_marginLeft="150.0dp" />
 		</LinearLayout>
 	</LinearLayout>
 </LinearLayout>
