@@ -8,6 +8,8 @@
    <application
         android:label="nativecode"
         android:icon="@mipmap/ic_launcher">
+        <!--1 つ目のアクティビティである DialerActivity は、アプリのメイン エントリ ポイントです
+         — これはユーザーがランチャー アイコンから初めてアプリを起動したときに開くアクティビティです。-->
         <activity
             android:name=".DialerActivity"
             android:launchMode="singleTop"
@@ -32,25 +34,38 @@
               android:name="io.flutter.embedding.android.SplashScreenDrawable"
               android:resource="@drawable/launch_background"
               />
+
+            <!--Intent はコンポーネント間の通知に使われる。
+             Intent の日本語訳は、意図や意思。 Intent はコンポーネント間を伝わる意思ということ。-->
+
             <intent-filter>
+                <!--ACTION_MAIN アクションにより、これがメインのエントリ ポイントで、
+                インテント データはないことが示されています。-->
                 <action android:name="android.intent.action.MAIN"/>
+                <!--CATEGORY_LAUNCHER カテゴリにより、このアクティビティのアイコンを
+                システムのアプリ ランチャーに配置するべきことが示されています。
+                <activity> 要素が icon でアイコンを指定していない場合、システムは 
+                <application> 要素のアイコンを使用します。-->
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
-             <intent-filter>
-                <action android:name="android.intent.action.CALL_PHONE" />
+            
+            <intent-filter>
                 <!-- Handle links from other applications -->
+                <!--他のアプリケーション(Flutter)からのリンクを処理する-->
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.DIAL" />
                 <!-- Populate the system chooser -->
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="tel" />
+                <data android:scheme="tel" />-->
             </intent-filter>
-            <!-- 必要Default App ListUp-->
+            
             <intent-filter>
+                <!--Handle links from this applications-->
+                <!--このアプリケーション(DialActivity.java)からのリンクを処理する-->
                 <action android:name="android.intent.action.DIAL" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
         </activity>
 
         <service

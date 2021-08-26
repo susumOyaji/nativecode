@@ -31,26 +31,13 @@ public class CallActivity extends  Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Toast.makeText(CallActivity.this, "CallActivity", Toast.LENGTH_SHORT).show();
+        Toast.makeText(CallActivity.this, "CallActivity@@@@@@@@@@@", Toast.LENGTH_SHORT).show();
         
 
 
 
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        setContentView(layout);
-
-        TextView textView = new TextView(this);
-        textView.setText("テキストビュー");
-        layout.addView(textView);
-
-        Button button = new Button(this);
-        button.setText("ボタン");
-        layout.addView(button);
-
-
         // R.layout.activity_call を渡して表示する
-        setContentView(R.layout.activity_call);
+        setContentView(R.layout.activity_noncall);
         answer = findViewById(R.id.answer);
         hangup = findViewById(R.id.hangup);
         callInfo = findViewById(R.id.callInfo);
