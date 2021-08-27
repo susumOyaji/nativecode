@@ -37,7 +37,8 @@
 
             <!--Intent はコンポーネント間の通知に使われる。
              Intent の日本語訳は、意図や意思。 Intent はコンポーネント間を伝わる意思ということ。-->
-
+            <!--暗黙的インテントに対し、起動される側のアプリを作るには intent-filter を AndroidManifest.xml に指定する。-->
+            <!--intent-filterとは受け取るインテントをフィルタリングするものと言える。-->    
             <intent-filter>
                 <!--ACTION_MAIN アクションにより、これがメインのエントリ ポイントで、
                 インテント データはないことが示されています。-->
@@ -53,7 +54,9 @@
                 <!-- Handle links from other applications -->
                 <!--他のアプリケーション(Flutter)からのリンクを処理する-->
                 <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.DIAL" />
+                <action android:name="android.intent.action.CALL" />
+                <action android:name="android.intent.action.CALL_PRIVILEGED" />                
+                <category android:name="android.intent.category.LAUNCHER" />
                 <!-- Populate the system chooser -->
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="tel" />-->
@@ -62,7 +65,7 @@
             <intent-filter>
                 <!--Handle links from this applications-->
                 <!--このアプリケーション(DialActivity.java)からのリンクを処理する-->
-                <action android:name="android.intent.action.DIAL" />
+                <action android:name="android.intent.action.CALL" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
@@ -80,6 +83,7 @@
         </service>
 
         <activity android:name=".CallActivity" />
+
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
