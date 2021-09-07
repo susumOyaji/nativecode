@@ -67,7 +67,7 @@ import static android.telecom.TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE
 
 public class DialerActivity extends FlutterActivity {
     private static final String CHANNEL = "samples.flutter.dev/battery";
-    //private static final int PERMISSION_REQUEST_READ_PHONE_STATE = 1;
+    private static final int PERMISSION_REQUEST_READ_PHONE_STATE = 1;
     private static  final String EXTRA_STRING = "extra_string";
     CallActivity callActivity = new CallActivity();
    
@@ -233,7 +233,7 @@ public class DialerActivity extends FlutterActivity {
             ActivityCompat.requestPermissions(this, new String[]{CALL_PHONE}, REQUEST_PERMISSION);
         }
              
-        String tv = CallActivity.PhoneState;
+        String tv = callActivity.PhoneState;
         Toast.makeText(DialerActivity.this, "makeCall  CallActivity.PhoneState:  " + tv , Toast.LENGTH_SHORT).show();
         
         return tv;
