@@ -113,6 +113,23 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  final EventChannel _channel =
+      const EventChannel('samples.flutter.dev/battery');
+  Stream<int> _onVolumeChanged;
+
+  Stream<int> get onVolumeChanged {
+    if (_onVolumeChanged == null) {
+      _onVolumeChanged = _channel
+          .receiveBroadcastStream()
+          .map((dynamic event) => event as int);
+    }
+    return _onVolumeChanged;
+  }
+//Streamは保持する。
+//新たにStreamを生成すると以前
+//生成したStreamはCancelされる。
+//シングルトンにするのはStreamを複数生成させないため。
+
   Future<void> _getPiatformHagup() async {
     // Get battery level.
     String platformHangup;
