@@ -16,19 +16,20 @@
             "flutterMode": "profile"
         },
         {
-            "name": "Android Launch",
+            "name": "Flutter & Android Launch",
             "type": "android",
             "request": "launch",
             "appSrcRoot": "${workspaceRoot}/android/app/src/main",
-            "apkFile": "${workspaceRoot}/android/build/app/outputs/apk/debug/app-debug.apk",
+            "apkFile": "${workspaceRoot}/build/app/outputs/apk/debug/app-debug.apk",
+            "autoStartADB": true,
             "adbPort": 5037
         },
         {
-            "name": "Android Build & Launch",
+            "name": "Flutter & Android Build & Launch",
             "type": "android",
             "request": "launch",
             "appSrcRoot": "${workspaceRoot}/android/app/src/main",
-            "apkFile": "${workspaceRoot}/android/build/app/outputs/apk/debug/app-debug.apk",
+            "apkFile": "${workspaceRoot}/build/app/outputs/apk/debug/app-debug.apk",
             "preLaunchTask": "run gradle",
             "autoStartADB": true,
             "adbSocket": "localhost:5037",
