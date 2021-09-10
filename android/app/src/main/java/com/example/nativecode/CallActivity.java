@@ -1,124 +1,145 @@
+//package customphonedialer.abror96.customphonedialer;
 package com.example.nativecode;
 
+
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+//import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.telecom.Call;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
+import kotlin.collections.CollectionsKt;
 
-import android.widget.LinearLayout;
+import static com.example.nativecode.Constants.asString;
 
-public class CallActivity extends  Activity {
+public class CallActivity extends AppCompatActivity {
 
-    private CompositeDisposable disposables = new CompositeDisposable();
+    @BindView(R.id.answer)
+    Button answer;
+    @BindView(R.id.hangup)
+    Button hangup;
+    @BindView(R.id.callInfo)
+    TextView callInfo;
+
+
+    private CompositeDisposable disposables;
     private String number;
-    private static Button answer, hangup;
-    private static TextView callInfo;
+    private OngoingCall ongoingCall;
     public  static String PhoneState;
-    private CallStateString callstatestring;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_call);
+        ButterKnife.bind(this);
 
-        Toast.makeText(CallActivity.this, "CallActivity@@@@@@@@@@@", Toast.LENGTH_SHORT).show();
-        
+        ongoingCall = new OngoingCall();
+        disposables = new CompositeDisposable();
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
+        number = Objects.requireNonNull(getIntent().getData()).getSchemeSpecificPart();
+    }
 
-        // R.layout.activity_call を渡して表示する
-        setContentView(R.layout.activity_noncall);
-        answer = findViewById(R.id.answer);
-        hangup = findViewById(R.id.hangup);
-        callInfo = findViewById(R.id.callInfo);
-       
-        number = getIntent().getData().getSchemeSpecificPart();
+    @OnClick(R.id.answer)
+    public void onAnswerClicked() {
+        ongoingCall.answer();
+    }
+
+    @OnClick(R.id.hangup)
+    public void onHangupClicked() {
+        ongoingCall.hangup();
     }
 
 
 
-
-    @SuppressLint("CheckResult")
     @Override
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
 
-        answer.setOnClickListener(v -> OngoingCall.answer());
-        hangup.setOnClickListener(v -> OngoingCall.hangup());
+        Toast.makeText(CallActivity.this, "CallActivity onStart():  " , Toast.LENGTH_SHORT).show();
+        assert updateUi(-1) != null;
+        disposables.add(
+                OngoingCall.state
+                        .subscribe(new Consumer<Integer>() {
+                            @Override
+                            public void accept(Integer integer) throws Exception {
+                                updateUi(integer);
+                                Toast.makeText(CallActivity.this, "updateUi state    :" + PhoneState, Toast.LENGTH_SHORT).show();
+                            }
+                        }));
 
-        // Subscribe to state change -> call updateUi when change    
-        new OngoingCall();
-        Disposable disposable = OngoingCall.state.subscribe(this::updateUi);
-        disposables.add(disposable);
-        
-        // Subscribe to state change (only when disconnected) -> call finish to close phone call
-        new OngoingCall();
-        Disposable disposable2 = OngoingCall.state
-                .filter(state -> state == Call.STATE_DISCONNECTED)
-                .delay(1, TimeUnit.SECONDS)
-                .firstElement()
-                .subscribe(this::finish);
+        disposables.add(
+                OngoingCall.state
+                        .filter(new Predicate<Integer>() {
+                            @Override
+                            public boolean test(Integer integer) throws Exception {
+                                return integer == Call.STATE_DISCONNECTED;
+                            }
+                        })
+                        .delay(1, TimeUnit.SECONDS)
+                        .firstElement()
+                        .subscribe(new Consumer<Integer>() {
+                            @Override
+                            public void accept(Integer integer) throws Exception {
+                                finish();
+                            }
+                        }));
 
-        disposables.add(disposable2);
-       
     }
 
-    // Call to Activity finish
-    void finish(Integer state){
-        finish();
-    }
-
-
-    // Set the UI for the call
     @SuppressLint("SetTextI18n")
-    public void updateUi(Integer state) {
-                
-        // Set callInfo text by the state
-        callInfo.setText(CallStateString.asString(state).toLowerCase() +"   "+number);
-        PhoneState = callInfo.getText().toString();
-        
+    private Consumer<? super Integer> updateUi(Integer state) {
 
-        if (state == Call.STATE_RINGING){
-            answer.setVisibility(View.VISIBLE);// ボタンを表示する
-        }else{
-            answer.setVisibility(View.GONE);// ボタンを非表示にする
-        }
-            
-        if (state == Call.STATE_DIALING || state == Call.STATE_RINGING || state == Call.STATE_ACTIVE){
-            hangup.setVisibility(View.VISIBLE);// ボタンを表示する
-        }else{
-            hangup.setVisibility(View.GONE);// ボタンを非表示にする
-        }    
-        Toast.makeText(CallActivity.this, "updateUi state    " + state, Toast.LENGTH_SHORT).show();
-        //Toast.makeText(CallActivity.this, "state    " + callstatestring.asString(state), Toast.LENGTH_SHORT).show();   
+        callInfo.setText(Constants.asString(state).toLowerCase() + "\n" + number);
+        PhoneState= callInfo.getText().toString();
+
+        if (state != Call.STATE_RINGING) {
+            answer.setVisibility(View.GONE);
+        } else answer.setVisibility(View.VISIBLE);
+
+        if (CollectionsKt.listOf(new Integer[]{
+                Call.STATE_DIALING,
+                Call.STATE_RINGING,
+                Call.STATE_ACTIVE}).contains(state)) {
+            hangup.setVisibility(View.VISIBLE);
+        } else
+            hangup.setVisibility(View.GONE);
+           
+        return null;
     }
-
 
     @Override
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
         disposables.clear();
     }
 
-    @SuppressLint("NewApi")
     public static void start(Context context, Call call) {
-        context.startActivity(new Intent(context, CallActivity.class)
+        Intent intent = new Intent(context, CallActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .setData(call.getDetails().getHandle()));
+                .setData(call.getDetails().getHandle());
+        context.startActivity(intent);
     }
- 
-
-   
-
-
 }
