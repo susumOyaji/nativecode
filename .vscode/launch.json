@@ -10,21 +10,6 @@
             "type": "dart"
         },
         {
-            "name": "nativecode (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "Flutter & Android Launch",
-            "type": "android",
-            "request": "launch",
-            "appSrcRoot": "${workspaceRoot}/android/app/src/main",
-            "apkFile": "${workspaceRoot}/build/app/outputs/apk/debug/app-debug.apk",
-            "autoStartADB": true,
-            "adbPort": 5037
-        },
-        {
             "name": "Flutter & Android Build & Launch",
             "type": "android",
             "request": "launch",
@@ -39,9 +24,9 @@
         {
             // configuration type, request  and name. "launch" is used to deploy the app
             // to your device and start a debugging session.
+            "name": "Flutter & Android Launch App",
             "type": "android",
             "request": "launch",
-            "name": "Launch App",
             // Location of the App source files. This value must point to the root of
             // your App source tree (containing AndroidManifest.xml).
             "appSrcRoot": "${workspaceRoot}/android/app/src/main",

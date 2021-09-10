@@ -4,7 +4,7 @@
         {
             "label": "run gradle",
             "type": "shell",
-            "command": "${workspaceFolder}/android/gradlew",
+            "command": "${workspaceRoot}/android/gradlew",
             "args": [
                 "assembleDebug"
             ],

@@ -95,9 +95,9 @@ public class CallActivity extends  Activity {
         }
             
         if (state == Call.STATE_DIALING || state == Call.STATE_RINGING || state == Call.STATE_ACTIVE){
-            hangup.setVisibility(View.VISIBLE);
+            hangup.setVisibility(View.VISIBLE);// ボタンを表示する
         }else{
-            hangup.setVisibility(View.GONE);
+            hangup.setVisibility(View.GONE);// ボタンを非表示にする
         }    
         Toast.makeText(CallActivity.this, "updateUi state    " + state, Toast.LENGTH_SHORT).show();
         //Toast.makeText(CallActivity.this, "state    " + callstatestring.asString(state), Toast.LENGTH_SHORT).show();   
