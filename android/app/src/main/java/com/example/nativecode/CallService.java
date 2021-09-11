@@ -10,6 +10,7 @@ public class CallService extends InCallService {
         new OngoingCall().setCall(call);
         Toast.makeText(this, "class to CallService", Toast.LENGTH_SHORT).show();
         CallActivity.start(this, call);
+        String ret = CallActivity.phoneState();
     }
 
     @Override
