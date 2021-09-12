@@ -71,7 +71,7 @@
 
         </activity>
         <activity android:name=".CallActivity" />
-        
+        <!--
         <service
             android:name=".CallService"
             android:permission="android.permission.BIND_INCALL_SERVICE">
@@ -82,7 +82,7 @@
                 <action android:name="android.telecom.InCallService" />
             </intent-filter>
         </service>
-
+        -->
         
 
         <!-- Don't delete the meta-data below.
