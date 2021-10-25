@@ -78,7 +78,8 @@ public class DialerActivity extends FlutterActivity {
     String parameters;
     TelecomManager telecomManager;
     TextView callinfo;
-    
+    String callNumber="1123";
+
     private static final int REQUEST_PERMISSION = 0;
     static final int REQUEST_CODE = 1;
     private static final int REQUEST_ID = 1;
@@ -90,6 +91,7 @@ public class DialerActivity extends FlutterActivity {
         GeneratedPluginRegistrant.registerWith(new FlutterEngine(this));
         
         //リスナー設定
+        //PhoneStateListener = Androidの通話状態が変わる度に通知してくれるイベント
         TelephonyManager telephonyManager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
         telephonyManager.listen(mListener, PhoneStateListener.LISTEN_CALL_STATE);
         
@@ -123,7 +125,7 @@ public class DialerActivity extends FlutterActivity {
                       
                       // invokeMethod(Dart)の第二引数で指定したパラメータを取得できます
                       parameters = call.arguments.toString();
-                      String phonestate = makeCall(parameters);
+                      String phonestate = "1";// makeCall(parameters);
                       Toast.makeText(DialerActivity.this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
                       
                       if (phonestate != null) {
