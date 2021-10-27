@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     try {
       final String result =
-          await platform.invokeMethod('getAndroidphone', "11111111111");
+          await platform.invokeMethod('getAndroidphone', "1345678");
       platformTelephony = result;
     } on PlatformException catch (e) {
       platformTelephony = "Failed : '${e.message}'.";

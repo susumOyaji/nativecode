@@ -125,7 +125,7 @@ public class DialerActivity extends FlutterActivity {
                       
                       // invokeMethod(Dart)の第二引数で指定したパラメータを取得できます
                       parameters = call.arguments.toString();
-                      String phonestate = "1";// makeCall(parameters);
+                      String phonestate = makeCall(parameters);
                       Toast.makeText(DialerActivity.this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
                       
                       if (phonestate != null) {
@@ -237,7 +237,7 @@ public class DialerActivity extends FlutterActivity {
         // If permission to call is granted
         if (checkSelfPermission(CALL_PHONE) == PERMISSION_GRANTED) {
         // Create the Uri from phoneNumberInput
-          Uri uri = Uri.parse("tel:"+ _phone);
+          //Uri uri = Uri.parse("tel:"+ _phone);
             
             // Start call to the number in input
             //別のアクティビティを開始する 
@@ -250,7 +250,7 @@ public class DialerActivity extends FlutterActivity {
             //電話アプリが開くと呼び出しが始まります。ユーザーが通話ボタンを押す必要はありません。
             //startActivity(new Intent(Intent.ACTION_CALL, uri));
             Intent intent = new Intent(Intent.ACTION_CALL)//暗黙的インテント
-                    .setData(Uri.parse("tel:0123456789"));
+                    .setData(Uri.parse("tel:" + _phone));
             try {
               startActivity(intent);
             } catch (SecurityException e){
