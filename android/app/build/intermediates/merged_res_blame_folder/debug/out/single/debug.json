@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\layout_activity_dialer.xml.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\layout\\activity_dialer.xml"
+    },
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\drawable_calling.png.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\drawable\\calling.png"
+    },
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\layout_activity_noncall.xml.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\layout\\activity_noncall.xml"
+    },
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\layout_activity_call.xml.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\layout\\activity_call.xml"
+    },
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\drawable_oip.png.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\drawable\\oip.png"
+    },
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\drawable_oip1.png.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\drawable\\oip1.png"
+    },
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\build\\app\\intermediates\\res\\merged\\debug\\drawable-v21_launch_background.xml.flat",
+        "source": "C:\\Users\\seisan1\\Documents\\GitHub\\nativecode\\android\\app\\src\\main\\res\\drawable-v21\\launch_background.xml"
+    }
+]

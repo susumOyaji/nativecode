@@ -1,0 +1,22 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/example/nativecode/DialerActivity.java
+ com.example.nativecode.DialerActivity
+ com.example.nativecode.DialerActivity$1
+ com.example.nativecode.DialerActivity$2
+com/example/nativecode/App.java
+ com.example.nativecode.App
+com/example/nativecode/OngoingCallorg.java
+ com.example.nativecode.OngoingCallorg
+ com.example.nativecode.OngoingCallorg$1
+com/example/nativecode/BuildConfig.java
+ com.example.nativecode.BuildConfig
+com/example/nativecode/CallStateString.java
+ com.example.nativecode.CallStateString
+com/example/nativecode/CallService.java
+ com.example.nativecode.CallService
+com/example/nativecode/CallActivity.java
+ com.example.nativecode.CallActivity
+com/example/nativecode/OngoingCall.java
+ com.example.nativecode.OngoingCall
+ com.example.nativecode.OngoingCall$1

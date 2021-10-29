@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.nativecode"
+    android:versionCode="1"
+    android:versionName="1.0.0" >
+
+    <uses-sdk
+        android:minSdkVersion="25"
+        android:targetSdkVersion="30" />
+    <!--
+         Flutter needs it to communicate with the running application
+         to allow setting breakpoints, to provide hot reload, etc.
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+
+    <application
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:debuggable="true"
+        android:extractNativeLibs="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="nativecode" >
+
+        <!--
+         1 つ目のアクティビティである DialerActivity は、アプリのメイン エントリ ポイントです
+         — これはユーザーがランチャー アイコンから初めてアプリを起動したときに開くアクティビティです。
+        -->
+        <activity
+            android:name="com.example.nativecode.DialerActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:windowSoftInputMode="adjustResize" >
+
+            <!--
+                 Specifies an Android theme to apply to this Activity as soon as
+                 the Android process has started. This theme is visible to the user
+                 while the Flutter UI initializes. After that, this theme continues
+                 to determine the Window background behind the Flutter UI.
+            -->
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme" />
+            <!--
+                 Displays an Android View that continues showing the launch screen
+                 Drawable until Flutter paints its first frame, then this splash
+                 screen fades out. A splash screen is useful to avoid any visual
+                 gap between the end of Android's launch screen and the painting of
+                 Flutter's first frame.
+            -->
+            <meta-data
+                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+                android:resource="@drawable/launch_background" />
+
+            <!--
+             Intent はコンポーネント間の通知に使われる。
+             Intent の日本語訳は、意図や意思。 Intent はコンポーネント間を伝わる意思ということ。
+            -->
+            <!-- 暗黙的インテントに対し、起動される側のアプリを作るには intent-filter を AndroidManifest.xml に指定する。 -->
+            <!-- intent-filterとは受け取るインテントをフィルタリングするものと言える。 -->
+            <intent-filter>
+
+                <!--
+                ACTION_MAIN アクションにより、これがメインのエントリ ポイントで、
+                インテント データはないことが示されています。
+                -->
+                <action android:name="android.intent.action.MAIN" />
+                <!--
+                CATEGORY_LAUNCHER カテゴリにより、このアクティビティのアイコンを
+                システムのアプリ ランチャーに配置するべきことが示されています。
+                <activity> 要素が icon でアイコンを指定していない場合、システムは 
+                <application> 要素のアイコンを使用します。
+                -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+
+                <!-- Handle links from other applications -->
+                <!-- 他のアプリケーション(Flutter)からのリンクを処理する -->
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <!-- Populate the system chooser -->
+                <action android:name="android.intent.action.DIAL" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="android.intent.action.CALL_PRIVILEGED" />
+
+                <data android:scheme="tel" />
+-->
+            </intent-filter>
+            <intent-filter>
+
+                <!-- Handle links from this applications -->
+                <!-- このアプリケーション(DialActivity.java)からのリンクを処理する -->
+                <action android:name="android.intent.action.DIAL" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.nativecode.CallActivity" />
+        <!--
+        <service
+            android:name=".CallService"
+            android:permission="android.permission.BIND_INCALL_SERVICE">
+            <meta-data
+                android:name="android.telecom.IN_CALL_SERVICE_UI"
+                android:value="true" />
+            <intent-filter>
+                <action android:name="android.telecom.InCallService" />
+            </intent-filter>
+        </service>
+        -->
+
+
+        <!--
+             Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+        -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+
+        <provider
+            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+            android:authorities="com.example.nativecode.lifecycle-process"
+            android:exported="false"
+            android:multiprocess="true" />
+    </application>
+
+</manifest>
