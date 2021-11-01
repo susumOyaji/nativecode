@@ -42,6 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     initPlatformState();
+    // _getAndroidphone();
+
     //_getBatteryLevel();
     //initPlatformState();
   }

@@ -76,6 +76,7 @@ public class DialerActivity extends FlutterActivity {
      
     //EditText phoneNumberInput;
     String parameters;
+    String phonestate;
     TelecomManager telecomManager;
     TextView callinfo;
     String callNumber="1123";
@@ -125,7 +126,7 @@ public class DialerActivity extends FlutterActivity {
                       
                       // invokeMethod(Dart)の第二引数で指定したパラメータを取得できます
                       parameters = call.arguments.toString();
-                      String phonestate = makeCall(parameters);
+                      /*String*/ phonestate = makeCall(parameters);
                       Toast.makeText(DialerActivity.this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
                       
                       if (phonestate != null) {
@@ -190,8 +191,10 @@ public class DialerActivity extends FlutterActivity {
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK:   //通話
                     Toast.makeText(DialerActivity.this, "通話中\nCALL_STATE_OFFHOOK", Toast.LENGTH_SHORT).show();
+                     phonestate  = "通話中\nCALL_STATE_OFFHOOK";
                     break;
             }
+           
         }
     };
 
