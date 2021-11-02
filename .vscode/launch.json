@@ -14,7 +14,7 @@
             "type": "android",
             "request": "launch",
             "appSrcRoot": "${workspaceRoot}/android/app/src/main",
-            "apkFile": "${workspaceRoot}/android/app/build/outputs/apk/debug/app-debug.apk",
+            "apkFile": "${workspaceRoot}/build/app/outputs/apk/debug/app-debug.apk",
             "preLaunchTask": "run gradle",
             "autoStartADB": true,
             "adbSocket": "localhost:5037",
