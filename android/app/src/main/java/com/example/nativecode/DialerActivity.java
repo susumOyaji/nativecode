@@ -72,7 +72,8 @@ public class DialerActivity extends FlutterActivity {
     private static final int PERMISSION_REQUEST_READ_PHONE_STATE = 1;
     private static  final String EXTRA_STRING = "extra_string";
     CallActivity callActivity = new CallActivity();
-   
+    private static TextView callInfo;
+    //private CallStateString callstatestring;
      
     //EditText phoneNumberInput;
     String parameters;
@@ -121,12 +122,29 @@ public class DialerActivity extends FlutterActivity {
                   @Override
                   public void onMethodCall(MethodCall call, Result result) {//TODO
                   Toast.makeText(DialerActivity.this, "Started theMethodChannel ", Toast.LENGTH_SHORT).show();
-                  if (call.method.equals("getAndroidphone")) {
+                  
+                  if (call.method.equals("Androidphone_getState")) {
+                    if (phonestate != null) {
+                        result.success(phonestate);//return to Flutter
+                      } else {
+                        result.error("UNAVAILABLE", "Dialer-AndroidPhone not available.", null);
+                      }
+                  }else if (call.method.equals("getAndroidphone")) {
+                    // invokeMethod(Dart)の第二引数で指定したパラメータを取得できます
+                    parameters = call.arguments.toString();
+                    
+                    // Set callInfo text by the state
+                    //callInfo.setText(CallStateString.asString(state).toLowerCase() +"   "+Parameters);
+                    //PhoneState = callInfo.getText().toString();
+                      
+                      
+                      
+                      
+                      
                       Toast.makeText(DialerActivity.this, "Started getAndroidphone!!! ", Toast.LENGTH_SHORT).show();
                       
-                      // invokeMethod(Dart)の第二引数で指定したパラメータを取得できます
-                      parameters = call.arguments.toString();
-                      /*String*/ phonestate = makeCall(parameters);
+                     
+                      /*String*/ //phonestate = makeCall(parameters);
                       Toast.makeText(DialerActivity.this, "Started theMethodChannel to makeCall", Toast.LENGTH_SHORT).show();
                       
                       if (phonestate != null) {
@@ -181,6 +199,7 @@ public class DialerActivity extends FlutterActivity {
             switch(state){
                 case TelephonyManager.CALL_STATE_IDLE:      //待ち受け（終了時）
                     Toast.makeText(DialerActivity.this, "通話終了\nCALL_STATE_IDLE", Toast.LENGTH_LONG).show();
+                     phonestate  = "INPUT to DIALING-Number";
                     break;
                 case TelephonyManager.CALL_STATE_RINGING:   //着信*
                     if(callNumber==null){

@@ -35,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _platformBattery = 'Unknown battery Level';
   String _platformHangup = 'Unknown Connect';
   String _platformAnswer = 'Unknown Connect';
+  String _platformTelephony_state = 'Unknown Connect';
 
   static const platform = const MethodChannel('samples.flutter.dev/battery');
 
@@ -42,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     initPlatformState();
-    // _getAndroidphone();
+    _Androidphone_state();
 
     //_getBatteryLevel();
     //initPlatformState();
@@ -79,6 +80,22 @@ class _MyHomePageState extends State<MyHomePage> {
       _platformVersion = platformVersion;
     });
     //}
+  }
+
+  Future<void> _Androidphone_state() async {
+    // Get battery level.
+    String formTelephony_state;
+
+    try {
+      final String result =
+          await platform.invokeMethod('Androidphone_getState');
+      formTelephony_state = result;
+    } on PlatformException catch (e) {
+      formTelephony_state = "Failed : '${e.message}'.";
+    }
+    setState(() {
+      _platformTelephony_state = formTelephony_state;
+    });
   }
 
   Future<void> _getAndroidphone() async {
@@ -167,10 +184,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
             Text(_platformVersion),
             RaisedButton(
-              child: Text('Connect the phone'),
+              child: Text(_platformTelephony_state),
               onPressed: _getAndroidphone,
             ),
-            Text(_platformTelephony),
+            //Text(_platformTelephony),
             RaisedButton(
               child: Text('Answer the pnone'),
               onPressed: _getPiatformAnswer,
